@@ -13,7 +13,8 @@ void tampilkanMenu() {
     cout << "\nMenu Manajemen Toko:\n";
     cout << "1. Lihat Daftar Barang\n";
     cout << "2. Tambah Barang\n";
-    cout << "3. Keluar\n";
+    cout << "3. Hitung Total Stok Barang\n";
+    cout << "4. Keluar\n";
 }
 
 void tampilkanSemuaBarang(const Barang toko[], int jumlahbarang) {
@@ -56,13 +57,20 @@ void tambahBarang(Barang toko[], int &jumlahbarang) {
     cout << "\nBarang berhasil ditambahkan!\n";
 }
 
+int hitungtotalstok(const Barang toko[], int jumlahbarang, int n = 0) {
+    if (n >= jumlahbarang) {
+        return 0;  
+    }
+    return toko[n].stok + hitungtotalstok(toko, jumlahbarang, n + 1);
+}
+
 int main() {
     Barang toko[100];
     int jumlahbarang = 0;
     int pilihan;
     while (true) {
         tampilkanMenu();
-        cout << "\nPilih menu (1-3): ";
+        cout << "\nPilih menu (1-4): ";
         cin >> pilihan;
 
         switch (pilihan) {
@@ -73,6 +81,9 @@ int main() {
                 tambahBarang(toko, jumlahbarang);
                 break;
             case 3:
+                cout << "\nTotal stok barang di toko : " << hitungtotalstok(toko,jumlahbarang) << " stok barang" << endl;
+                break;
+            case 4:
                 cout << "Terima kasih telah menggunakan program ini.\n";
                 return 0;
             default:
